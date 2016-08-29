@@ -1,0 +1,15 @@
+$NetBSD$
+
+Fix redirect syntax in test script.
+
+--- tests/jp-compat.src/abort-on-file-error.at.orig	2016-05-10 12:16:32.000000000 +0000
++++ tests/jp-compat.src/abort-on-file-error.at
+@@ -28,7 +28,7 @@ AT_DATA([prog.cob], [
+ ])
+ 
+ AT_CHECK([${COMPILE} prog.cob], [0])
+-AT_CHECK([./prog >& /dev/null], [1])
++AT_CHECK([./prog > /dev/null 2>&1], [1])
+ 
+ AT_CLEANUP
+ 

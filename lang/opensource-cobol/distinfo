@@ -1,0 +1,22 @@
+$NetBSD$
+
+SHA1 (opensource-cobol-1.5.0J-utf8.tar.gz) = fe08687ac34e02fec04819709bfc520a257c324c
+RMD160 (opensource-cobol-1.5.0J-utf8.tar.gz) = 313dc363a75343bc245d767d4de0e6f19c845e14
+SHA512 (opensource-cobol-1.5.0J-utf8.tar.gz) = 24ebddc9cd38e4a461edbb944963939c7e380789c639ca137c67f3b51ff1d040cfe924b1e2d83ed31aff3671062fee5003a31be7267bb96f88b49958bf2355aa
+Size (opensource-cobol-1.5.0J-utf8.tar.gz) = 1743834 bytes
+SHA1 (patch-cobc_codegen.c) = 96cf2a715855a0a38503537ff2f108e749da198a
+SHA1 (patch-cobc_pplex.l) = e49f70e16972f4bf11cc617832265a3b555378fa
+SHA1 (patch-cobc_pplex.l.m4) = 1c16e4cad27dfd8de1a018806a1f9b1dcb179ef7
+SHA1 (patch-cobc_tree.c) = f1b86c10388ba8467b135e0999a5b9cd68742cc5
+SHA1 (patch-cobc_typeck.c) = e81f80d84aab1cdfa8b904f987c4448b69131a61
+SHA1 (patch-libcob.h) = 628621389ef9e1b6a662848ce1390507db2e8d2a
+SHA1 (patch-libcob_call.c) = f138336583175b6f7d3bc2ebd31365af1eff3be9
+SHA1 (patch-libcob_call.h) = 9f17b61bc16dc76e7efeea8afd2aaa10a2840fdb
+SHA1 (patch-libcob_common.c) = b0276b287200c24cf8ab17b7792c7c2ea43c576f
+SHA1 (patch-libcob_fileio.c) = 51f7a8c0d4d20833b719e561418aa34c2f77ff13
+SHA1 (patch-libcob_move.c) = fb8ac81da72132a5a3455498ca7e530bf147dc9c
+SHA1 (patch-libcob_numeric.c) = 845ab6e8a63a33ac7b039774e608e78dc0f7b05c
+SHA1 (patch-libcob_screenio.c) = 50fac27b5898152b0c21e90eafe8cb598069289a
+SHA1 (patch-libcob_strings.c) = 76ae29e07083055f6b1db7c99bed9804e583967c
+SHA1 (patch-tests_jp-compat) = d51940b3d651715d1290310c51aff4b53360911c
+SHA1 (patch-tests_jp-compat.src_abort-on-file-error.at) = e4814b6f97817f16e5ce683ce685b92d1d41af1a
