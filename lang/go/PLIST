@@ -96,6 +96,7 @@ go/doc/gopher/bumper320x180.png
 go/doc/gopher/bumper480x270.png
 go/doc/gopher/bumper640x360.png
 go/doc/gopher/doc.png
+go/doc/gopher/favicon.svg
 go/doc/gopher/fiveyears.jpg
 go/doc/gopher/frontpage.png
 go/doc/gopher/gopherbw.png
@@ -1038,7 +1039,7 @@ go/pkg/${GO_PLATFORM}/unicode/utf16.a
 go/pkg/${GO_PLATFORM}/unicode/utf8.a
 go/pkg/${GO_PLATFORM}/vendor/golang_org/x/net/http2/hpack.a
 go/pkg/${GO_PLATFORM}/vendor/golang_org/x/net/lex/httplex.a
-go/pkg/${GO_PLATFORM}/vendor/golang_org/x/net/route.a
+${PLIST.route}go/pkg/${GO_PLATFORM}/vendor/golang_org/x/net/route.a
 go/pkg/tool/${GO_PLATFORM}/addr2line
 go/pkg/tool/${GO_PLATFORM}/api
 go/pkg/tool/${GO_PLATFORM}/asm
