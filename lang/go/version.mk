@@ -1,4 +1,4 @@
-# $NetBSD: version.mk,v 1.17 2016/09/10 09:09:23 bsiegert Exp $
+# $NetBSD$
 
 .include "../../mk/bsd.prefs.mk"
 
