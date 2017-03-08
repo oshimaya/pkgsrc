@@ -1,0 +1,14 @@
+$NetBSD: distinfo,v 1.11 2016/08/21 11:18:37 ryoon Exp $
+
+SHA1 (jwm-2.3.6.tar.xz) = 7a966fafa129dbb42e414b2ac2aa8267f0ff7909
+RMD160 (jwm-2.3.6.tar.xz) = 14d3b1b4adcd26305669ab3a2cd069da6cb92f57
+SHA512 (jwm-2.3.6.tar.xz) = ed3556bf2e28bfcf36b2b145e6c08e75c24e47b723b16ce072100d2773338d819c5465e7af2dc6b842e2e35f375ec3a0b85d9987e0a8acecdbe628dc09eabd11
+Size (jwm-2.3.6.tar.xz) = 343644 bytes
+SHA1 (patch-Makefile.in) = 0ae071bfa59770c3b07f8ab6ce138e6d92318e1f
+SHA1 (patch-src_Makefile.in) = db9b310a04e0542fbbacaba7633bfd0a286d778c
+SHA1 (patch-src_event.c) = 5157a7594a64661f0a187593cf2ed587de5810c9
+SHA1 (patch-src_key.c) = c3b97b9d04c6a478a7caec3b24e34df385e063e9
+SHA1 (patch-src_key.h) = 2cd43785ad14f7288aca74b1e254d1c6f5f008e2
+SHA1 (patch-src_parse.c) = 6f0581be2bc34598284a6285fa9ea4bc1e58c0fd
+SHA1 (patch-src_settings.c) = 90551c5bc2cca70e68f3dfc9a31ff43a9ec1e66c
+SHA1 (patch-src_settings.h) = 6c03787031c75560d41dc0e96c8934f0dbc45395
