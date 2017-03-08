@@ -2,7 +2,7 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.db4
 
-PKG_SUPPORTED_OPTIONS=	doc posixmutexes
+PKG_SUPPORTED_OPTIONS=	doc posixmutexes tcl
 PKG_SUGGESTED_OPTIONS=	doc 
 
 .include "../../mk/bsd.prefs.mk"
@@ -11,6 +11,7 @@ PKG_SUGGESTED_OPTIONS=	doc
 PKG_SUGGESTED_OPTIONS+=	posixmutexes
 .endif
 
+.include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "MirBSD"
 PLIST_SRC+=		PLIST.${OPSYS}
@@ -34,4 +35,9 @@ PLIST_SRC+=		PLIST.docs
 
 .if !empty(PKG_OPTIONS:Mposixmutexes)
 CONFIGURE_ARGS+=	--enable-posixmutexes
+.endif
+
+.if !empty(PKG_OPTIONS:Mtcl)
+.include "../../lang/tcl85/buildlink3.mk"
+CONFIGURE_ARGS+=	--with-tcl=${BUILDLINK_PREFIX.tcl}/lib
 .endif
