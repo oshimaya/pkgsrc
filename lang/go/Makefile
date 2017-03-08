@@ -1,10 +1,9 @@
-# $NetBSD: Makefile,v 1.47 2016/09/17 15:56:58 bsiegert Exp $
+# $NetBSD: Makefile,v 1.48 2016/10/27 18:58:00 bsiegert Exp $
 
 .include "version.mk"
 
 DISTNAME=	go${GO_VERSION}.src
 PKGNAME=	go-${GO_VERSION}
-PKGREVISION=	1
 CATEGORIES=	lang
 MASTER_SITES=	https://storage.googleapis.com/golang/
 
@@ -36,6 +35,7 @@ REPLACE_BASH+=	misc/cgo/fortran/test.bash
 REPLACE_BASH+=	misc/cgo/testcshared/test.bash
 REPLACE_BASH+=	misc/cgo/testgodefs/test.bash
 REPLACE_BASH+=	misc/cgo/testsanitizers/test.bash
+REPLACE_BASH+=	misc/cgo/testplugin/test.bash
 REPLACE_BASH+=	misc/nacl/go_nacl_386_exec
 REPLACE_BASH+=	misc/nacl/go_nacl_amd64p32_exec
 REPLACE_BASH+=	misc/nacl/go_nacl_arm_exec
@@ -44,9 +44,9 @@ REPLACE_BASH+=	src/androidtest.bash
 REPLACE_BASH+=	src/bootstrap.bash
 REPLACE_BASH+=	src/buildall.bash
 REPLACE_BASH+=	src/clean.bash
-REPLACE_BASH+=	src/cmd/compile/internal/big/vendor.bash
 REPLACE_BASH+=	src/cmd/dist/mkdeps.bash
 REPLACE_BASH+=	src/cmd/go/mkalldocs.sh
+REPLACE_BASH+=	src/internal/trace/mkcanned.bash
 REPLACE_BASH+=	src/iostest.bash
 REPLACE_BASH+=	src/make.bash
 REPLACE_BASH+=	src/naclmake.bash
@@ -64,7 +64,6 @@ REPLACE_PERL+=	src/syscall/*.pl
 REPLACE_PERL+=	test/errchk
 
 # uses /bin/rc (for Plan 9)
-CHECK_INTERPRETER_SKIP+=	go/include/plan9/mklibc.rc
 CHECK_INTERPRETER_SKIP+=	go/src/all.rc
 CHECK_INTERPRETER_SKIP+=	go/src/clean.rc
 CHECK_INTERPRETER_SKIP+=	go/src/make.rc
