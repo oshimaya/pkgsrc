@@ -25,7 +25,7 @@ TMPDIR?=	/tmp
 BUILDLINK_PASSTHRU_DIRS+= ${TMPDIR}
 
 GOROOT_FINAL=	${PREFIX}/go14
-INSTALLATION_DIRS= bin go14
+INSTALLATION_DIRS= go14
 
 REPLACE_BASH+=	doc/articles/wiki/test.bash
 REPLACE_BASH+=	doc/codewalk/run
