@@ -6,6 +6,7 @@ DISTNAME=	go${GO_VERSION}.src
 PKGNAME=	go-${GO_VERSION}
 CATEGORIES=	lang
 MASTER_SITES=	https://storage.googleapis.com/golang/
+EXTRACT_USING=	bsdtar
 
 MAINTAINER=	bsiegert@NetBSD.org
 HOMEPAGE=	http://golang.org/
@@ -32,7 +33,6 @@ REPLACE_BASH+=	misc/arm/a
 REPLACE_BASH+=	misc/benchcmp
 REPLACE_BASH+=	misc/cgo/errors/test.bash
 REPLACE_BASH+=	misc/cgo/fortran/test.bash
-REPLACE_BASH+=	misc/cgo/testcarchive/test.bash
 REPLACE_BASH+=	misc/cgo/testcshared/test.bash
 REPLACE_BASH+=	misc/cgo/testgodefs/test.bash
 REPLACE_BASH+=	misc/cgo/testplugin/test.bash
@@ -65,6 +65,15 @@ REPLACE_PERL+=	src/regexp/syntax/make_perl_groups.pl
 REPLACE_PERL+=	src/syscall/*.pl
 REPLACE_PERL+=	test/errchk
 
+# uses own linker, which does not support relro on NetBSD
+CHECK_RELRO_SKIP+=		go/bin/go
+CHECK_RELRO_SKIP+=		go/bin/gofmt
+CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/asm
+CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/compile
+CHECK_RELRO_SKIP+=		go/pkg/bootstrap/bin/link
+# also does not support SSP at this time
+CHECK_SSP_SKIP=			${CHECK_RELRO_SKIP}
+
 # uses /bin/rc (for Plan 9)
 CHECK_INTERPRETER_SKIP+=	go/src/all.rc
 CHECK_INTERPRETER_SKIP+=	go/src/clean.rc
@@ -84,6 +93,8 @@ PLIST.route=	yes
 
 do-build:
 	cd ${WRKSRC}/src && env GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:Q} GOROOT_FINAL=${GOROOT_FINAL:Q} ${GOOPT} ${BASH} ./make.bash
+# for RELRO build:
+#	cd ${WRKSRC}/src && env GOROOT_BOOTSTRAP=${GOROOT_BOOTSTRAP:Q} GOROOT_FINAL=${GOROOT_FINAL:Q} GO_LDFLAGS="-buildmode=pie" ${GOOPT} ${BASH} ./make.bash
 
 do-install:
 	cd ${WRKSRC} && rm -rf .hgignore .hgtags pkg/obj

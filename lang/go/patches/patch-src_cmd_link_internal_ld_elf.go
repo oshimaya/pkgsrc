@@ -17,7 +17,7 @@ $NetBSD$
  }
 +func elfnetbsdarmsig(sh *ElfShdr, startva uint64, resoff uint64) int {
 +	mArch := []byte("earm\x00")
-+	switch obj.GOARM {
++	switch objabi.GOARM {
 +	case 6:
 +		mArch = []byte("earmv6hf\x00")
 +	case 7:
@@ -44,7 +44,7 @@ $NetBSD$
  
 +	if SysArch.Family == sys.ARM {
 +		mArch := []byte("earm\x00")
-+		switch obj.GOARM {
++		switch objabi.GOARM {
 +		case 6:
 +			mArch = []byte("earmv6hf\x00")
 +		case 7:
@@ -66,16 +66,16 @@ $NetBSD$
  
 @@ -1905,6 +1940,9 @@ func (ctxt *Link) doelf() {
  	}
- 	if Headtype == obj.Hnetbsd {
+ 	if Headtype == objabi.Hnetbsd {
  		Addstring(shstrtab, ".note.netbsd.ident")
 +		if SysArch.Family == sys.ARM {
 +			Addstring(shstrtab, ".note.netbsd.march")
 +		}
  	}
- 	if Headtype == obj.Hopenbsd {
+ 	if Headtype == objabi.Hopenbsd {
  		Addstring(shstrtab, ".note.openbsd.ident")
 @@ -2332,6 +2370,10 @@ func Asmbelf(ctxt *Link, symo int64) {
- 		case obj.Hnetbsd:
+ 		case objabi.Hnetbsd:
  			sh = elfshname(".note.netbsd.ident")
  			resoff -= int64(elfnetbsdsig(sh, uint64(startva), uint64(resoff)))
 +			if SysArch.Family == sys.ARM {
@@ -83,5 +83,5 @@ $NetBSD$
 +				resoff -= int64(elfnetbsdarmsig(sh, uint64(startva), uint64(resoff)))
 +			}
  
- 		case obj.Hopenbsd:
+ 		case objabi.Hopenbsd:
  			sh = elfshname(".note.openbsd.ident")

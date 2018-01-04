@@ -492,7 +492,6 @@ go14/pkg/${GO_PLATFORM}/regexp.a
 go14/pkg/${GO_PLATFORM}/regexp/syntax.a
 go14/pkg/${GO_PLATFORM}/runtime.a
 go14/pkg/${GO_PLATFORM}/runtime.h
-go14/pkg/${GO_PLATFORM}/runtime/cgo.a
 go14/pkg/${GO_PLATFORM}/runtime/debug.a
 go14/pkg/${GO_PLATFORM}/runtime/pprof.a
 go14/pkg/${GO_PLATFORM}/runtime/race.a
