@@ -1,6 +1,6 @@
 $NetBSD$
 
---- src/cmd/link/internal/ld/elf.go.orig	2017-02-16 19:12:22.000000000 +0000
+--- src/cmd/link/internal/ld/elf.go.orig	2017-10-25 18:30:21.000000000 +0000
 +++ src/cmd/link/internal/ld/elf.go
 @@ -1263,6 +1263,8 @@ const (
  	ELF_NOTE_NETBSD_DESCSZ  = 4
@@ -31,7 +31,7 @@ $NetBSD$
  
  func elfwritenetbsdsig() int {
  	// Write Elf_Note header.
-@@ -1280,12 +1295,32 @@ func elfwritenetbsdsig() int {
+@@ -1280,12 +1295,31 @@ func elfwritenetbsdsig() int {
  		return 0
  	}
  
@@ -41,7 +41,7 @@ $NetBSD$
  	Cput(0)
  
  	Thearch.Lput(ELF_NOTE_NETBSD_VERSION)
- 
+-
 +	if SysArch.Family == sys.ARM {
 +		mArch := []byte("earm\x00")
 +		switch objabi.GOARM {
@@ -64,7 +64,7 @@ $NetBSD$
  	return int(sh.size)
  }
  
-@@ -1905,6 +1940,9 @@ func (ctxt *Link) doelf() {
+@@ -1902,6 +1936,9 @@ func (ctxt *Link) doelf() {
  	}
  	if Headtype == objabi.Hnetbsd {
  		Addstring(shstrtab, ".note.netbsd.ident")
@@ -74,14 +74,19 @@ $NetBSD$
  	}
  	if Headtype == objabi.Hopenbsd {
  		Addstring(shstrtab, ".note.openbsd.ident")
-@@ -2332,6 +2370,10 @@ func Asmbelf(ctxt *Link, symo int64) {
- 		case objabi.Hnetbsd:
- 			sh = elfshname(".note.netbsd.ident")
- 			resoff -= int64(elfnetbsdsig(sh, uint64(startva), uint64(resoff)))
-+			if SysArch.Family == sys.ARM {
-+				sh = elfshname(".note.netbsd.march")
-+				resoff -= int64(elfnetbsdarmsig(sh, uint64(startva), uint64(resoff)))
-+			}
+@@ -2340,6 +2377,15 @@ func Asmbelf(ctxt *Link, symo int64) {
+ 		pnote.flags = PF_R
+ 		phsh(pnote, sh)
+ 	}
++	if Headtype == objabi.Hnetbsd && SysArch.Family == sys.ARM {
++		var sh *ElfShdr
++		sh = elfshname(".note.netbsd.march")
++		resoff -= int64(elfnetbsdarmsig(sh, uint64(startva), uint64(resoff)))
++		pnote = newElfPhdr()
++		pnote.type_ = PT_NOTE
++		pnote.flags = PF_R
++		phsh(pnote, sh)
++	}
  
- 		case objabi.Hopenbsd:
- 			sh = elfshname(".note.openbsd.ident")
+ 	if len(buildinfo) > 0 {
+ 		sh := elfshname(".note.gnu.build-id")
