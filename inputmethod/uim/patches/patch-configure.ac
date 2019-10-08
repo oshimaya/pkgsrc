@@ -1,0 +1,15 @@
+$NetBSD$
+Fix bad libedit_path - don't set after overwriting with_libedit=yes.
+
+--- configure.ac.orig	2018-05-11 21:26:13.000000000 +0000
++++ configure.ac
+@@ -1311,8 +1311,8 @@ if test "x$with_libedit" != xno; then
+   if test "x$with_libedit" = xyes; then
+     libedit_path=/usr
+   else
+-    with_libedit=yes
+     libedit_path="$with_libedit"
++    with_libedit=yes
+   fi
+ 
+   saved_CPPFLAGS=$CPPFLAGS
