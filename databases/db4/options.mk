@@ -2,16 +2,16 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.db4
 
-PKG_SUPPORTED_OPTIONS=	doc posixmutexes tcl
-PKG_SUGGESTED_OPTIONS=	doc 
+PKG_SUPPORTED_OPTIONS=	doc posixmutexs tcl
+PKG_SUGGESTED_OPTIONS=	doc
+
+.include "../../mk/bsd.prefs.mk"
 
 .include "../../mk/bsd.prefs.mk"
 .if (${MACHINE_ARCH} == "sh3el" || ${MACHINE_ARCH} == "sh3eb" || \
      ${MACHINE_ARCH} == "vax" ) && (${OPSYS} == "NetBSD")
-PKG_SUGGESTED_OPTIONS+=	posixmutexes
+PKG_SUGGESTED_OPTIONS+=        posixmutexes
 .endif
-
-.include "../../mk/bsd.prefs.mk"
 
 .if ${OPSYS} == "MirBSD"
 PLIST_SRC+=		PLIST.${OPSYS}
@@ -34,10 +34,10 @@ PLIST_SRC+=		PLIST.docs
 .endif
 
 .if !empty(PKG_OPTIONS:Mposixmutexes)
-CONFIGURE_ARGS+=	--enable-posixmutexes
+CONFIGURE_ARGS+=       --enable-posixmutexes
 .endif
 
 .if !empty(PKG_OPTIONS:Mtcl)
 .include "../../lang/tcl85/buildlink3.mk"
-CONFIGURE_ARGS+=	--with-tcl=${BUILDLINK_PREFIX.tcl}/lib
+CONFIGURE_ARGS+=       --with-tcl=${BUILDLINK_PREFIX.tcl}/lib
 .endif

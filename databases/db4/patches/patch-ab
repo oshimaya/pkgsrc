@@ -1,4 +1,4 @@
-$NetBSD: patch-ab,v 1.25 2014/06/07 08:19:14 obache Exp $
+$NetBSD: patch-ab,v 1.26 2019/02/14 14:36:06 thorpej Exp $
 
 --- dist/configure.orig	2010-04-12 20:25:23.000000000 +0000
 +++ dist/configure
@@ -12,7 +12,7 @@ $NetBSD: patch-ab,v 1.25 2014/06/07 08:19:14 obache Exp $
  	LDFLAGS="$LDFLAGS -pthread";;
  gnu*|k*bsd*-gnu|linux*)
  	CPPFLAGS="$CPPFLAGS -D_GNU_SOURCE -D_REENTRANT";;
-+netbsd*)
+++netbsd*)
 +	CPPFLAGS="$CPPFLAGS -pthread"
 +	LDFLAGS="$LDFLAGS -pthread";;
 +haiku*)	LIBSO_LIBS="$LIBSO_LIBS -lnetwork";;
@@ -176,7 +176,39 @@ $NetBSD: patch-ab,v 1.25 2014/06/07 08:19:14 obache Exp $
  	hp*)		_JNI_INC_SUBDIRS="hp-ux";;
  	linux*)		_JNI_INC_SUBDIRS="linux genunix";;
  	osf*)		_JNI_INC_SUBDIRS="alpha";;
-@@ -19807,25 +19852,26 @@ $as_echo "$db_cv_mutex" >&6; }
+@@ -19567,6 +19612,31 @@ fi
+ rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
+ fi
+ 
++# AARCH64/gcc: Linux
++if test "$db_cv_mutex" = no; then
++cat confdefs.h - <<_ACEOF >conftest.$ac_ext
++/* end confdefs.h.  */
++
++int
++main ()
++{
++
++#if defined(__aarch64__) && defined(__GNUC__)
++	exit(0);
++#else
++	FAIL TO COMPILE/LINK
++#endif
++
++  ;
++  return 0;
++}
++_ACEOF
++if ac_fn_c_try_compile "$LINENO"; then :
++  db_cv_mutex=AARCH64/gcc-assembly
++fi
++rm -f core conftest.err conftest.$ac_objext conftest.$ac_ext
++fi
++
+ # MIPS/gcc: Linux
+ if test "$db_cv_mutex" = no; then
+ cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+@@ -19807,25 +19877,25 @@ $as_echo "$db_cv_mutex" >&6; }
  # Configure a pthreads-style mutex implementation.
  hybrid=pthread
  case "$db_cv_mutex" in
@@ -199,14 +231,24 @@ $NetBSD: patch-ab,v 1.25 2014/06/07 08:19:14 obache Exp $
  
  			$as_echo "#define HAVE_MUTEX_THREAD_ONLY 1" >>confdefs.h
  ;;
-+POSIX/pthreads/library*)ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
-+			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
-+;;
 +POSIX/pthreads*)	ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
 +			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
 +
 +			;;
-+
++POSIX/pthreads/library*)ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
++			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
++;;
  Solaris/lwp*)		ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
  			$as_echo "#define HAVE_MUTEX_SOLARIS_LWP 1" >>confdefs.h
+ 
+@@ -19862,6 +19932,10 @@ ARM/gcc-assembly)	ADDITIONAL_OBJS="mut_t
+ 			$as_echo "#define HAVE_MUTEX_ARM_GCC_ASSEMBLY 1" >>confdefs.h
+ 
+ 			;;
++AARCH64/gcc-assembly)	ADDITIONAL_OBJS="mut_tas${o} $ADDITIONAL_OBJS"
++			$as_echo "#define HAVE_MUTEX_AARCH64_GCC_ASSEMBLY 1" >>confdefs.h
++
++			;;
+ HP/msem_init)		ADDITIONAL_OBJS="mut_tas${o} $ADDITIONAL_OBJS"
+ 			$as_echo "#define HAVE_MUTEX_HPPA_MSEM_INIT 1" >>confdefs.h
  
