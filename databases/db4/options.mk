@@ -2,7 +2,7 @@
 
 PKG_OPTIONS_VAR=	PKG_OPTIONS.db4
 
-PKG_SUPPORTED_OPTIONS=	doc posixmutexs tcl
+PKG_SUPPORTED_OPTIONS=	doc posixmutexes tcl
 PKG_SUGGESTED_OPTIONS=	doc
 
 .include "../../mk/bsd.prefs.mk"
