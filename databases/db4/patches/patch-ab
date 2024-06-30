@@ -5,6 +5,8 @@ calling the undeclared exit function, and add missing return types
 main.  This improves compatibility with compilers which do not accept
 language features that were removed from C99.
 
+Fix the order for pthreads-style mutex implementation.
+
 --- dist/configure.orig	2010-04-12 20:25:23.000000000 +0000
 +++ dist/configure
 @@ -4523,11 +4523,12 @@ bsdi3*)	CC=${CC-"shlicc2"}
@@ -463,6 +465,39 @@ language features that were removed from C99.
  #else
  	FAIL TO COMPILE/LINK
  #endif
+@@ -19807,25 +19885,25 @@ $as_echo "$db_cv_mutex" >&6; }
+ # Configure a pthreads-style mutex implementation.
+ hybrid=pthread
+ case "$db_cv_mutex" in
+-POSIX/pthreads*)	ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
+-			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
+-
+-			;;
+ POSIX/pthreads/private*)ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
+ 			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
+ 
+ 			$as_echo "#define HAVE_MUTEX_THREAD_ONLY 1" >>confdefs.h
+ 
+ 			;;
+-POSIX/pthreads/library*)ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
+-			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
+-;;
+ POSIX/pthreads/library/private*)
+ 			ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
+ 			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
+ 
+ 			$as_echo "#define HAVE_MUTEX_THREAD_ONLY 1" >>confdefs.h
+ ;;
++POSIX/pthreads/library*)ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
++			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
++;;
++POSIX/pthreads*)	ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
++			$as_echo "#define HAVE_MUTEX_PTHREADS 1" >>confdefs.h
++
++			;;
+ Solaris/lwp*)		ADDITIONAL_OBJS="mut_pthread${o} $ADDITIONAL_OBJS"
+ 			$as_echo "#define HAVE_MUTEX_SOLARIS_LWP 1" >>confdefs.h
+ 
 @@ -19862,6 +19940,10 @@ ARM/gcc-assembly)	ADDITIONAL_OBJS="mut_t
  			$as_echo "#define HAVE_MUTEX_ARM_GCC_ASSEMBLY 1" >>confdefs.h
  
