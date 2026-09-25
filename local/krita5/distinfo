@@ -1,0 +1,7 @@
+$NetBSD$
+
+BLAKE2s (krita-6.0.4.tar.xz) = f34981458724ff8de48eedea80803254f9f4ae7dc989ff974488df69a15ce7aa
+SHA512 (krita-6.0.4.tar.xz) = 5c6a03c4447d4130a28c3c10d5ff596fc6dcf95894d9eddbb91f1960a89def00968bc551a75a8ec8d55d97b16a310a4c0ceef6e9432e89fbc4413f7361faede4
+Size (krita-6.0.4.tar.xz) = 206806924 bytes
+SHA1 (patch-cmake_modules_FindLibMyPaint.cmake) = 4d2273db42e4427f1ec2f4f2e1c86d976c0e24f3
+SHA1 (patch-plugins_dockers_CMakeLists.txt) = 67623184a85eea82727e67eb076cc7b7c772d348
